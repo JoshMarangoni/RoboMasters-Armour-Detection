@@ -1,6 +1,11 @@
 # Robomaster Armour Detector
 This detector can locate the center of a target given an image or the robot. I have not tested this extensively but seems to work fine for typical cases.
 
+### Run 
+```
+python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.jpg --save ./
+```
+
 ### Method
 
 - use saliency to bring out the important parts of the image
