@@ -13,5 +13,5 @@ This detector can locate the center of a target given an image or the robot. I h
 ### Output
 <p align="center">
   <br>
-  <img src="image.jpg" width="500">
+  <img src="target.jpg" width="500">
 </p>
