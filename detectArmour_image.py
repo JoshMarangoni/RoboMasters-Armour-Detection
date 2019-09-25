@@ -8,7 +8,13 @@ import cv2
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,
 	help="path to the input image")
+ap.add_argument("--save", required=True, 
+	help="Path to saved image directory")
 args = vars(ap.parse_args())
+
+def saveToDisk(img, imgName): 
+	path = args["save"] + '/' + imgName + '.jpg'
+	cv2.imwrite(path, img)
 
 # load the image and resize it to a smaller factor so that
 # the shapes can be approximated better
@@ -59,8 +65,6 @@ for c in cnts:
 		c = c.astype("float")
 		c = c.astype("int")
 		cv2.drawContours(image, [c], -1, (0, 255, 0), 2)
-		cv2.putText(image, shape, (cX, cY), cv2.FONT_HERSHEY_SIMPLEX,
-			0.5, (255, 255, 255), 2)
 		numRect += 1
 		coord = [cX, cY]
 		rectangles.append(coord)
@@ -73,7 +77,10 @@ for c in cnts:
 		# average the two rectangles' center coordinates
 		targetcX = int((rectangles[0][0] + rectangles[1][0]) / 2.0)
 		targetcY = int((rectangles[0][1] + rectangles[1][1]) / 2.0)
-		cv2.circle(image, (targetcX, targetcY), 7, (255, 255, 255), -1)
+		cv2.circle(image, (targetcX, targetcY), 3, (0, 255, 0), -1)
+		cv2.putText(image, "center", (targetcX-25, targetcY+20), 
+			cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 		# show the output image
 		cv2.imshow("Image", image)
 		cv2.waitKey(0)
+		saveToDisk(image, "target")
