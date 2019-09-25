@@ -15,11 +15,7 @@ args = vars(ap.parse_args())
 image = cv2.imread(args["image"])
 image = imutils.resize(image, width=600)
  
-# convert the resized image to grayscale, blur it slightly,
-# and threshold it
-#gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-#blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-#thresh = cv2.threshold(blurred, 60, 255, cv2.THRESH_BINARY)[1]
+# find saliency map of image, then threshold the LEDs
 saliency = cv2.saliency.StaticSaliencyFineGrained_create()
 (success, saliencyMap) = saliency.computeSaliency(image)
 saliencyMap = (saliencyMap * 255).astype("uint8")
@@ -29,15 +25,17 @@ cv2.waitKey(0)
 
 thresh = cv2.threshold(saliencyMap.astype("uint8"), 210, 255,
 	cv2.THRESH_BINARY)[1]
-#cv2.THRESH_OTSU
+
 cv2.imshow("thresh", thresh)
 cv2.waitKey(0)
  
-# find contours in the thresholded image and initialize the
-# shape detector
+# find contours in the thresholded image 
 cnts = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL,
 	cv2.CHAIN_APPROX_SIMPLE)
 cnts = imutils.grab_contours(cnts)
+
+# initialize shape detector, rectangle count, and list of rectangle 
+# coordinates
 sd = ShapeDetector()
 numRect = 0
 rectangles = []
@@ -55,8 +53,8 @@ for c in cnts:
 		cY = int(M["m01"] / M["m00"])
 	shape = sd.detect(c)
  
-	# multiply the contour (x, y)-coordinates by the resize ratio,
-	# then draw the contours and the name of the shape on the image
+	# find rectangular contours,add the center coordinates to list, and 
+	# increase the rectangle count
 	if shape == "rectangle":
 		c = c.astype("float")
 		c = c.astype("int")
