@@ -18,5 +18,5 @@ python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.j
 ### Output
 <p align="center">
   <br>
-  <img src="target.jpg" width="500">
+  <img src="image-550.jpg" width="500">
 </p>
