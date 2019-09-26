@@ -12,6 +12,8 @@ python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.j
 - threshold the image at 210 pixels to isolate the strips
 - use a shape detector to find the rectangular LED strips
 - find the center coordinates of the rectangular LED strips
+- compare the slopes between rectangles and choose the one with a slope close to 0
+- also check that distanceX is not signifactly larger than distanceY
 - find the center of the target using the two LED strips on the sides of the target
 
 
