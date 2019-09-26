@@ -35,10 +35,6 @@ saliencyMap = (saliencyMap * 255).astype("uint8")
 cv2.imshow("saliency", saliencyMap)
 cv2.waitKey(0)
 
-#gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-#blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-#thresh = cv2.threshold(blurred, 250, 255,cv2.THRESH_BINARY)[1]
-
 thresh = cv2.threshold(saliencyMap.astype("uint8"), 210, 255,
 	cv2.THRESH_BINARY)[1]
 
@@ -84,23 +80,23 @@ for c in cnts:
 		cv2.imshow("Image", image)
 		cv2.waitKey(0)
 
-print(len(rectangles))
+print("rectangles: " + str(len(rectangles)))
 
 if len(rectangles) > 1: 
 	i = 0
 	while i < len(rectangles)-1:
 		# determine if two rectangles exist with a flat slope between them
 		dx = abs(rectangles[i][0] - rectangles[i+1][0])
-		print(dx)
+		print("dx: " + str(dx))
 		dy = abs(rectangles[i][1] - rectangles[i+1][1])
-		print(dy)
+		print("dy: " + str(dy))
 		slope = float(dy/dx)
 
-		print(slope)
-		print(dx/dy)
+		print("slope: " + str(slope))
+		print("dx/dy: " + str(dx/dy))
 
 		# if slope is close to flat, then matching rectangles found
-		if (slope < 0.3 or (slope > 0.7 and slope < 1.3)): 
+		if (slope < 0.3 or (slope > 0.7 and slope < 1.3)) and (dx/dy < 10): 
 			# average the two rectangles' center coordinates
 			targetcX = int((rectangles[i][0] + rectangles[i+1][0]) / 2.0)
 			targetcY = int((rectangles[i][1] + rectangles[i+1][1]) / 2.0)

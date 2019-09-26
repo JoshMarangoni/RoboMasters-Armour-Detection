@@ -1,9 +1,9 @@
 # Robomaster Armour Detector
-This detector can locate the center of a target given an image or the robot. I have not tested this extensively but seems to work fine for typical cases.
+This detector is intended to locate the center of the robot's armour panel. It works reasonably well given the panel is facing directly at the camera and the camera is not tilted. It struggles in situations where the LED strips are not vertical or are obstructed.
 
 ### Run 
 ```
-python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.jpg --save ./
+python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.jpg --save ./output/
 ```
 
 ### Method
