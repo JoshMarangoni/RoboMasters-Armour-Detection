@@ -82,36 +82,35 @@ for c in cnts:
 
 print("rectangles: " + str(len(rectangles)))
 
-if len(rectangles) > 1: 
-	i = 0
-	while i < len(rectangles)-1:
-		# determine if two rectangles exist with a flat slope between them
-		dx = abs(rectangles[i][0] - rectangles[i+1][0])
-		if dx == 0:
-			dx = 0.0001
-		print("\ndx: " + str(dx))
-		dy = abs(rectangles[i][1] - rectangles[i+1][1])
-		if dy == 0: 
-			dy = 0.0001
-		print("dy: " + str(dy))
+i = 0
+while i < len(rectangles)-1:
+	# determine if two rectangles exist with a flat slope between them
+	dx = abs(rectangles[i][0] - rectangles[i+1][0])
+	if dx == 0:
+		dx = 0.0001
+	print("\ndx: " + str(dx))
+	dy = abs(rectangles[i][1] - rectangles[i+1][1])
+	if dy == 0: 
+		dy = 0.0001
+	print("dy: " + str(dy))
 
-		slope = float(dy/dx)
-		print("dy/dx: " + str(slope))
-		print("dx/dy: " + str(dx/dy))
+	slope = float(dy/dx)
+	print("dy/dx: " + str(slope))
+	print("dx/dy: " + str(dx/dy))
 
-		# if slope is close to flat, then matching rectangles found
-		if (slope < 0.3 and (dx/dy < 7)): 
-			# average the two rectangles' center coordinates
-			targetcX = int((rectangles[i][0] + rectangles[i+1][0]) / 2.0)
-			targetcY = int((rectangles[i][1] + rectangles[i+1][1]) / 2.0)
-			cv2.circle(image, (targetcX, targetcY), 3, (0, 255, 0), -1)
-			cv2.putText(image, "center", (targetcX-25, targetcY+20), 
-				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-			print('CENTER')
-			# show the output image
-			cv2.imshow("Image", image)
-			cv2.waitKey(0)
-			saveToDisk(image, args['image'])
-			break
+	# if slope is close to flat, then matching rectangles found
+	if (slope < 0.3 and (dx/dy < 9)): 
+		# average the two rectangles' center coordinates
+		targetcX = int((rectangles[i][0] + rectangles[i+1][0]) / 2.0)
+		targetcY = int((rectangles[i][1] + rectangles[i+1][1]) / 2.0)
+		cv2.circle(image, (targetcX, targetcY), 3, (0, 255, 0), -1)
+		cv2.putText(image, "center", (targetcX-25, targetcY+20), 
+			cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+		print('CENTER')
+		# show the output image
+		cv2.imshow("Image", image)
+		cv2.waitKey(0)
+		saveToDisk(image, args['image'])
+		break
 
-		i+=1
+	i+=1
