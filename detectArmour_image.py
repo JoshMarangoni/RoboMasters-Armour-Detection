@@ -84,7 +84,7 @@ print("rectangles: " + str(len(rectangles)))
 
 i = 0
 while i < len(rectangles)-1:
-	# determine if two rectangles exist with a flat slope between them
+	# determine if two *adjacent* rectangles exist with a flat slope between them
 	dx = abs(rectangles[i][0] - rectangles[i+1][0])
 	if dx == 0:
 		dx = 0.0001
