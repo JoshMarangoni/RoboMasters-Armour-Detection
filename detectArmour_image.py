@@ -1,5 +1,5 @@
 # usage
-# python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.jpg --save ./
+# python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.jpg --save ./output/
 
 from shapeDetector import ShapeDetector
 import argparse
@@ -87,24 +87,27 @@ if len(rectangles) > 1:
 	while i < len(rectangles)-1:
 		# determine if two rectangles exist with a flat slope between them
 		dx = abs(rectangles[i][0] - rectangles[i+1][0])
-		print("dx: " + str(dx))
+		if dx == 0:
+			dx = 0.0001
+		print("\ndx: " + str(dx))
 		dy = abs(rectangles[i][1] - rectangles[i+1][1])
+		if dy == 0: 
+			dy = 0.0001
 		print("dy: " + str(dy))
-		slope = float(dy/dx)
 
-		print("slope: " + str(slope))
+		slope = float(dy/dx)
+		print("dy/dx: " + str(slope))
 		print("dx/dy: " + str(dx/dy))
 
 		# if slope is close to flat, then matching rectangles found
-		if (slope < 0.3 or (slope > 0.7 and slope < 1.3)) and (dx/dy < 10): 
+		if (slope < 0.3 and (dx/dy < 7)): 
 			# average the two rectangles' center coordinates
 			targetcX = int((rectangles[i][0] + rectangles[i+1][0]) / 2.0)
 			targetcY = int((rectangles[i][1] + rectangles[i+1][1]) / 2.0)
-
 			cv2.circle(image, (targetcX, targetcY), 3, (0, 255, 0), -1)
 			cv2.putText(image, "center", (targetcX-25, targetcY+20), 
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-
+			print('CENTER')
 			# show the output image
 			cv2.imshow("Image", image)
 			cv2.waitKey(0)
