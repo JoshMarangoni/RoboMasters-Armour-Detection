@@ -1,5 +1,5 @@
 '''
-Special thanks to Adrian Rosenbrock at pyimagesearch for this module.
+Special thanks to Adrian Rosebrock at pyimagesearch for this module.
 https://www.pyimagesearch.com/2016/02/08/opencv-shape-detection/
 '''
 
