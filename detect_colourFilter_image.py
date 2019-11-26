@@ -1,5 +1,3 @@
-# usage
-# python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.jpg --save ./output/
 
 from shapeDetector import ShapeDetector
 import numpy as np

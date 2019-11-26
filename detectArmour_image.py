@@ -1,5 +1,5 @@
 # usage
-# python detectArmour_image.py -i dataset/RoboMasterLabelledImagesSet1/image-550.jpg --save ./output/
+# python detectArmour_image.py -i ../datasets/RoboMasterLabelledImagesSet1/image-550.jpg --save ./output/ --method blurr
 
 from shapeDetector import ShapeDetector
 import argparse
@@ -78,14 +78,14 @@ for c in cnts:
 	if shape == "rectangle" or shape == "pentagon":
 		c = c.astype("float")
 		c = c.astype("int")
-		cv2.drawContours(image, [c], -1, (0, 255, 0), 2)
+		#cv2.drawContours(image, [c], -1, (0, 255, 0), 2)
 		coord = [cX, cY]
 		quadrilaterals.append(coord)
 
 		# show the output image
-		cv2.imshow("Image", image)
+		#cv2.imshow("Image", image)
 		print(shape)
-		cv2.waitKey(0)
+		#cv2.waitKey(0)
 
 print("quadrilaterals: " + str(len(quadrilaterals)))
 
